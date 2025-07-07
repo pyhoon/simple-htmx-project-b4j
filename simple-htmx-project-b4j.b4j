@@ -1,0 +1,45 @@
+﻿AppType=StandardJava
+Build1=Default,com.example
+File1=LICENSE
+FileGroup1=Default Group
+Group=App
+Library1=endsmeet.1.00
+Library2=jcore
+Library3=minimalistutils
+Library4=webapiutils
+Module1=Index
+NumberOfFiles=1
+NumberOfLibraries=4
+NumberOfModules=1
+Version=10.3
+@EndOfDesignText@
+'Non-UI application (console / server application)
+#Region Project Attributes 
+	#CommandLineArgs:
+	#MergeLibraries: True
+#End Region
+'GitHub Desktop ide://run?file=%WINDIR%\System32\cmd.exe&Args=/c&Args=github&Args=..\..\
+'LibDownloader: ide://run?file=%JAVABIN%\java.exe&Args=-jar&Args=%ADDITIONAL%\..\B4X\libget-non-ui.jar&Args=%PROJECT%&Args=true
+
+Sub Process_Globals
+    Public app As EndsMeet
+	Public todos As MinimaList
+End Sub
+
+' <link>Open in browser|http://localhost:3000</link>
+Sub AppStart (Args() As String)
+    app.Initialize
+	todos.Initialize
+	todos.Add(CreateMap("title": "delectus aut autem", "completed": False))
+	todos.Add(CreateMap("title": "quis ut nam facilis et officia qui", "completed": True))
+	todos.Add(CreateMap("title": "fugiat veniam minus", "completed": False))
+    app.Get("", "Index")
+    app.Get("/todo", "Index")
+    app.Post("/todo", "Index")
+    app.Put("/todo/*", "Index")
+    app.Delete("/todo/*", "Index")
+	app.Port = 3000
+    app.Start
+	app.LogStartupMessage
+    StartMessageLoop
+End Sub
